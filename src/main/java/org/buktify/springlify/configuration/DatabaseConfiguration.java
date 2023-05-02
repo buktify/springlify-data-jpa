@@ -2,6 +2,7 @@ package org.buktify.springlify.configuration;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.buktify.configurate.ConfigurationService;
 import org.buktify.springlify.configuration.settings.DatabaseSettings;
@@ -18,13 +19,18 @@ import java.util.Map;
 public class DatabaseConfiguration {
 
     @Bean
-    public DatabaseSettings databaseSettings(@NotNull JavaPlugin javaPlugin) {
-        DatabaseSettings databaseSettings = new DatabaseSettings();
-        new ConfigurationService()
+    @SneakyThrows
+    public DatabaseSettings databaseSettings(@NotNull ConfigurationService configurationService) {
+        return configurationService.getConfigurationPool().get(DatabaseSettings.class);
+    }
+
+    @Bean
+    public ConfigurationService configurationService(@NotNull JavaPlugin javaPlugin) {
+        ConfigurationService configurationService = new ConfigurationService()
                 .rootDirectory(javaPlugin.getDataFolder())
-                .registerConfiguration(databaseSettings)
-                .apply();
-        return databaseSettings;
+                .registerConfigurations(DatabaseConfiguration.class);
+        configurationService.apply();
+        return configurationService;
     }
 
     @Bean
