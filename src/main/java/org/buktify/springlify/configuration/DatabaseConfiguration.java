@@ -28,7 +28,7 @@ public class DatabaseConfiguration {
     public ConfigurationService configurationService(@NotNull JavaPlugin javaPlugin) {
         ConfigurationService configurationService = new ConfigurationService()
                 .rootDirectory(javaPlugin.getDataFolder())
-                .registerConfigurations(DatabaseConfiguration.class);
+                .registerConfigurations(DatabaseSettings.class);
         configurationService.apply();
         return configurationService;
     }

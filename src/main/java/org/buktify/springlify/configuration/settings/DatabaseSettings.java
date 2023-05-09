@@ -22,9 +22,9 @@ public class DatabaseSettings {
     @Variable("hibernate.driver")
     String driver = "com.mysql.cj.jdbc.Driver";
     @Variable("hibernate.url")
-    String url = "jdbc:mysql://localhost:3306/jedicraft-test";
+    String url = "jdbc:mysql://localhost:3306/ test";
     @Variable("hibernate.username")
-    String username = "coolpex";
+    String username = "test";
     @Variable("hibernate.password")
     String password = "uQwkDYAkHNXb";
     @Variable("hibernate.additional-properties")
