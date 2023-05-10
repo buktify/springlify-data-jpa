@@ -37,7 +37,7 @@ public class DatabaseConfiguration {
     public HashMap<Object, Object> hibernateProperties(@NotNull DatabaseSettings databaseSettings) {
         return new HashMap<>() {
             {
-                put("hibernate.connection.driver", databaseSettings.getDriver());
+                put("hibernate.connection.driver_class", databaseSettings.getDriver());
                 put("hibernate.connection.url", databaseSettings.getUrl());
                 put("hibernate.connection.username", databaseSettings.getUsername());
                 put("hibernate.connection.password", databaseSettings.getPassword());

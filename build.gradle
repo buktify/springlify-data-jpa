@@ -16,7 +16,6 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
-    implementation 'org.hibernate.orm:hibernate-core:6.2.1.Final'
     implementation "org.buktify:configurate:1.0.5"
     implementation 'org.jetbrains:annotations:24.0.1'
 }
