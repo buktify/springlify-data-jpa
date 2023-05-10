@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.buktify:springlify-data-jpa:1.0.4'
+    compileOnly 'org.buktify:springlify-data-jpa:1.0.7'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 ```
