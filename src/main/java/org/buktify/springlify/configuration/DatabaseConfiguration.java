@@ -1,5 +1,7 @@
 package org.buktify.springlify.configuration;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.SneakyThrows;
@@ -10,8 +12,10 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +52,19 @@ public class DatabaseConfiguration {
                 }
             }
         };
+    }
+
+    @Bean
+    public DataSource dataSource(@NotNull DatabaseSettings databaseSettings){
+        if(databaseSettings.isHikariEnabled()){
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.setUsername(databaseSettings.getUsername());
+            hikariConfig.setJdbcUrl(databaseSettings.getUrl());
+            hikariConfig.setDriverClassName(databaseSettings.getDriver());
+            hikariConfig.setPassword(databaseSettings.getPassword());
+            return new HikariDataSource(hikariConfig);
+        }
+        return new SimpleDriverDataSource();
     }
 
     @Bean

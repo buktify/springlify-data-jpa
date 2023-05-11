@@ -22,7 +22,7 @@ public class DatabaseSettings {
     @Variable("hibernate.driver")
     String driver = "com.mysql.cj.jdbc.Driver";
     @Variable("hibernate.url")
-    String url = "jdbc:mysql://localhost:3306/ test";
+    String url = "jdbc:mysql://localhost:3306/test";
     @Variable("hibernate.username")
     String username = "test";
     @Variable("hibernate.password")
@@ -32,4 +32,7 @@ public class DatabaseSettings {
             "hibernate.hbm2ddl.auto:update",
             "hibernate.show_sql:true"
     );
+
+    @Variable("hikari.enabled")
+    boolean hikariEnabled = true;
 }

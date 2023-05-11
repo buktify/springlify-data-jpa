@@ -12,7 +12,7 @@
 ```groovy
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.4'
+    id 'org.springframework.boot' version '3.0.6'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.buktify:springlify-data-jpa:1.0.7'
+    compileOnly 'org.buktify:springlify-data-jpa:1.0.8.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 ```
