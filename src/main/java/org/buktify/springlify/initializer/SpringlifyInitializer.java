@@ -3,12 +3,14 @@ package org.buktify.springlify.initializer;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.buktify.springlify.commands.SpigotCommandInitializer;
+import org.buktify.springlify.configuration.DatabaseConfiguration;
 import org.buktify.springlify.listener.ListenableServiceInitializer;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.DefaultResourceLoader;
 
@@ -25,11 +27,13 @@ public class SpringlifyInitializer {
         CompoundClassLoader classLoader = new CompoundClassLoader(loaders);
         return new SpringApplicationBuilder(applicationClass)
                 .initializers((ApplicationContextInitializer<GenericApplicationContext>) applicationContext -> {
-                    applicationContext.registerBean(SpigotCommandInitializer.class, () -> new SpigotCommandInitializer(plugin));
-                    applicationContext.registerBean(ListenableServiceInitializer.class, () -> new ListenableServiceInitializer(plugin));
+                    if (applicationContext instanceof AnnotationConfigApplicationContext annotationConfigApplicationContext) {
+                        annotationConfigApplicationContext.register(DatabaseConfiguration.class);
+                        annotationConfigApplicationContext.register(ListenableServiceInitializer.class);
+                        annotationConfigApplicationContext.register(SpigotCommandInitializer.class);
+                    }
                 })
                 .resourceLoader(new DefaultResourceLoader(classLoader))
-                .initializers(new SpringlifyContextInitializer())
                 .bannerMode(Banner.Mode.OFF)
                 .run();
     }
