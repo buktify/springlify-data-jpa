@@ -1,4 +1,4 @@
-package org.buktify.springlify.configuration.settings;
+package org.buktify.springlify.configuration.bukkit;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,12 +21,16 @@ public class DatabaseSettings {
 
     @Variable("hibernate.driver")
     String driver = "com.mysql.cj.jdbc.Driver";
+
     @Variable("hibernate.url")
     String url = "jdbc:mysql://localhost:3306/test";
+
     @Variable("hibernate.username")
     String username = "test";
+
     @Variable("hibernate.password")
     String password = "uQwkDYAkHNXb";
+
     @Variable("hibernate.additional-properties")
     List<String> additionalProperties = List.of(
             "hibernate.hbm2ddl.auto:update",

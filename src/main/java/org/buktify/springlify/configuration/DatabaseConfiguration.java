@@ -4,10 +4,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.SneakyThrows;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.buktify.configurate.ConfigurationService;
-import org.buktify.springlify.configuration.settings.DatabaseSettings;
+import org.buktify.configurate.SimpleConfigurationService;
+import org.buktify.springlify.configuration.bukkit.DatabaseSettings;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
@@ -23,18 +22,13 @@ import java.util.Map;
 public class DatabaseConfiguration {
 
     @Bean
-    @SneakyThrows
-    public DatabaseSettings databaseSettings(@NotNull ConfigurationService configurationService) {
-        return configurationService.getConfigurationPool().get(DatabaseSettings.class);
-    }
-
-    @Bean
-    public ConfigurationService configurationService(@NotNull JavaPlugin javaPlugin) {
-        ConfigurationService configurationService = new ConfigurationService()
-                .rootDirectory(javaPlugin.getDataFolder())
-                .registerConfigurations(DatabaseSettings.class);
-        configurationService.apply();
-        return configurationService;
+    @SuppressWarnings("all")
+    public DatabaseSettings configurationService(@NotNull JavaPlugin javaPlugin) {
+        return new SimpleConfigurationService(javaPlugin.getDataFolder())
+                .registerConfigurations(DatabaseSettings.class)
+                .apply()
+                .getConfigurationPool()
+                .getConfiguration(DatabaseSettings.class);
     }
 
     @Bean
