@@ -23,7 +23,7 @@ public class DatabaseConfiguration {
 
     @Bean
     @SuppressWarnings("all")
-    public DatabaseSettings configurationService(@NotNull JavaPlugin javaPlugin) {
+    public DatabaseSettings databaseSettings(@NotNull JavaPlugin javaPlugin) {
         return new SimpleConfigurationService(javaPlugin.getDataFolder())
                 .registerConfigurations(DatabaseSettings.class)
                 .apply()
